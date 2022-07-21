@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>一起来认识二叉搜索树 | Hello greaters</title>
+<meta name="description" content="谢谢你来到我的世界">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://swapfloor.github.io/favicon.ico?v=1658419661068">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://swapfloor.github.io/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://swapfloor.github.io">Hello greaters</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/links" class="menu">
+                友链
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>一起来认识二叉搜索树</h1>
+            <p class="article-meta">
+              2022-07-02
+              
+                <a href="https://swapfloor.github.io/tag/IGNALtUVU/" class="badge ">
+                  BST
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言">前言</h2>
+<p><strong>二叉搜索树</strong>是一种特殊的二叉树。</p>
+<h3 id="二叉搜索树的特殊性质">二叉搜索树的&quot;特殊&quot;性质</h3>
+<p>每个结点的值大于或等于左子树每个结点的值，小于或等于右子树每个结点的值。</p>
+<h3 id="二叉搜索树的例图">二叉搜索树的例图</h3>
+<figure data-type="image" tabindex="1"><img src="https://swapfloor.github.io/post-images/1656751644058.png" alt="" loading="lazy"></figure>
+<h3 id="练习">练习</h3>
+<p>如何通过程序<strong>验证</strong>一棵二叉树<strong>是否</strong>是<strong>二叉搜索树</strong>？</p>
+<p>给出一棵二叉树的根节点，然后通过编写程序验证是否是二叉搜索树。</p>
+<p><strong>二叉搜索树性质</strong>：每个结点的值大于左子树每个结点的值，小于右子树每个结点的值。且左右子树也为二叉搜索树。</p>
+<p>类已经定义好了</p>
+<pre><code class="language-c++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://swapfloor.github.io/post-images/1656751658116.jpg" alt="" loading="lazy"></figure>
+<p>我可以写一个程序解决这一个图中的问题。</p>
+<pre><code class="language-c++">bool isValidBST(TreeNode* root) {
+    int l, r, mid;
+    if (root != nullptr) mid = root-&gt;val;
+    if (root-&gt;left != nullptr) l = root-&gt;left-&gt;val;
+    if (root-&gt;right != nullptr) r = root-&gt;right-&gt;val;
+    if (mid &gt;= l &amp;&amp; mid &lt;= r) return true;
+    else return false;
+}
+</code></pre>
+<p>如果是下面这个图该怎么办？</p>
+<figure data-type="image" tabindex="3"><img src="https://swapfloor.github.io/post-images/1656751682799.jpg" alt="" loading="lazy"></figure>
+<h4 id="递归">递归</h4>
+<p>对于一个被递归的结点，</p>
+<ol>
+<li>
+<p>如果它是右子树递归下来的点，则需要判断三个结点，自己、父亲、还有父亲作为左儿子的父亲，因为需要满足左子树的所有结点小于根节点。</p>
+</li>
+<li>
+<p>如果它是左子树递归下来的点，则需要判断三个结点，自己、父亲、还有父亲作为右儿子的父亲，因为需要满足右子树的所有结点大于根节点。</p>
+</li>
+</ol>
+<p>三个结点按二叉搜索树顺序排列返回正确，这里可以找反例判断不正确，原因是有可能有空节点。</p>
+<p>根据大小关系将左爹和右爹的左爹抽象为矮点，将右爹和左爹的右爹抽象为高点</p>
+<ol>
+<li>
+<p>如果根节点为空，则直接返回正确。</p>
+</li>
+<li>
+<p>如果矮点存在，矮点大于根节点，返回错误。</p>
+</li>
+<li>
+<p>如果高点存在，高点小于根节点，返回错误。</p>
+</li>
+</ol>
+<ul>
+<li>然后是<strong>递归</strong>，递归要将高点和矮点按逻辑写入，首先是没有这两个点的，所以设为空节点，</li>
+<li>其次如果向左子树递归，根节点挪到左子树结点上，高点即根节点，矮点直接继承。</li>
+<li>如果向右子树递归，根节点挪到右子树结点上，矮点即根节点，高点直接继承。</li>
+</ul>
+<pre><code class="language-c++">#define r right
+#define l left
+#define N TreeNode
+bool is(N* rt, N* low, N* high) {
+    if (!rt) return true;
+    
+    if (low &amp;&amp; low-&gt;val &gt;= rt-&gt;val) return false
+    if (high &amp;&amp; high-&gt;val &lt;= rt-&gt;val) return false;
+    
+    return is(rt-&gt;l, low, rt) &amp;&amp; is(rt-&gt;r, rt, high);
+}
+bool isValidBST(N* rt) {
+    return is(rt, nullptr, nullptr);
+}
+</code></pre>
+<h4 id="利用堆栈进行中序遍历">利用堆栈进行中序遍历</h4>
+<p>优点：不使用递归<br>
+利用二叉搜索树性质：中序遍历可以得到升序序列</p>
+<ul>
+<li>首先将根节点放入栈中，然后不断向左移动结点，</li>
+<li>将途中结点加入栈中，堆栈顶部可以看出是最小的结点，</li>
+<li>我们从栈顶取出结点放入一个变量<code>prev</code>，</li>
+<li>将栈顶的右子树结点放入另一个变量<code>cur</code>，</li>
+<li>如果<code>cur</code>可以向左移动，那么就让它一直向左直到树叶；如果prev大于cur那么就返回错误。</li>
+</ul>
+<pre><code class="language-c++">#define r right
+#define l left
+#define N TreeNode
+bool isValidBST(N* rt) {
+    if (!rt) return true;
+    
+    std::stack&lt;N*&gt; stk;
+    
+    N *cur = rt, *prev = nullptr;
+    
+    while (cur || stk.size()) {
+        while (cur) {
+            stk.push(cur);
+            cur = cur-&gt;l;
+        }
+        cur = stk.top(); 
+        stk.pop();
+        
+        if (prev &amp;&amp; prev-&gt;val &gt;= cur-&gt;val) return false;
+        
+        prev = cur;
+        cur = cur-&gt;r;
+    }
+    
+    return true;
+}
+</code></pre>
+<p>可以看到加入stack中的结点不能是空节点，不然就会出现<code>node-&gt;left=nullptr</code>然后去访问<code>node-&gt;left-&gt;left</code>访问失败。</p>
+<p>所以使用<code>while(cur)</code>如果存在才加入，如果左节点不存在，就从栈顶去元素，如果不存在右子树，cur就会变成下一个栈顶元素。</p>
+<h4 id="其他">其他</h4>
+<p>利用中序遍历可以看出二叉搜索树的升序性质</p>
+<p>假设一棵二叉搜索树为<code>[12,5,18,3,7,14,19,null,4,6,8]</code></p>
+<figure data-type="image" tabindex="4"><img src="https://swapfloor.github.io/post-images/1656751704308.PNG" alt="" loading="lazy"></figure>
+<pre><code class="language-c++">#define r right
+#define l left
+#define N TreeNode
+void printBST(N* rt) {
+    if (!rt) return;
+    
+    std::stack&lt;N*&gt; stk;
+    
+    N *cur = rt, *prev = nullptr;
+    
+    while (cur || stk.size()) {
+        while (cur) {
+            stk.push(cur);
+            cur = cur-&gt;l;
+        }
+        cur = stk.top(); 
+        stk.pop();
+        
+        if (prev &amp;&amp; prev-&gt;val &gt;= cur-&gt;val) return;
+        
+        prev = cur;
+        printf(&quot;%d &quot;, prev-&gt;val); // 将上一个结点打印出来
+        cur = cur-&gt;r;
+    }
+}
+</code></pre>
+<p>结果为<code>3 4 5 6 7 8 12 14 18 19</code></p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://swapfloor.github.io/post/bitset-de-yi-dao-li-ti/">
+                <h3 class="post-title">
+                  bitset的一道例题
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://swapfloor.github.io/images/avatar.png?v=1658419661068" class="no-responsive avatar">
+    <div class="text-muted">谢谢你来到我的世界</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/yi-dao-zhan-ti-mu/">一道栈题目</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/leetcode-weekly-contest-289/">leetcode Weekly Contest 289</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/atcoder-beginner-contest-042/">AtCoder Beginner Contest 042</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/links/">友链</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/yi-qi-lai-ren-shi-er-cha-sou-suo-shu/">一起来认识二叉搜索树</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/bitset-de-yi-dao-li-ti/">bitset的一道例题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/about/">关于</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/hello-gridea/">Hello Gridea</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://swapfloor.github.io/tag/7pcdKAPSj/" class="badge secondary">
+          dfs
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/owpvBz873E/" class="badge warning">
+          贪心
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/XCKknlHOCb/" class="badge secondary">
+          前缀
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/H3CauUnUc/" class="badge ">
+          组合数
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/IGNALtUVU/" class="badge warning">
+          BST
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/6ugHUdckq/" class="badge warning">
+          bitset
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://swapfloor.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

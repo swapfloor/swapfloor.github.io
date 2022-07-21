@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>一道栈题目 | Hello greaters</title>
+<meta name="description" content="谢谢你来到我的世界">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://swapfloor.github.io/favicon.ico?v=1658419661068">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://swapfloor.github.io/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://swapfloor.github.io">Hello greaters</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/links" class="menu">
+                友链
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>一道栈题目</h1>
+            <p class="article-meta">
+              2022-07-21
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p><a href="https://ac.nowcoder.com/acm/contest/22669/A">练习：栈和排序</a></p>
+<h2 id="题目描述">题目描述</h2>
+<ul>
+<li>
+<p>给你一个1-&gt;n的排列和一个栈，入栈顺序给定。</p>
+</li>
+<li>
+<p>你要在不打乱入栈顺序的情况下，对数组进行从大到小排序。</p>
+</li>
+<li>
+<p>当无法完全排序时，请输出<strong>字典序最大</strong>的出栈序列。</p>
+</li>
+</ul>
+<h2 id="输入描述">输入描述</h2>
+<ul>
+<li>
+<p>第一行一个数n。</p>
+</li>
+<li>
+<p>第二行n个数，表示入栈的顺序，用空格隔开，结尾无空格。</p>
+</li>
+</ul>
+<h2 id="输出描述">输出描述</h2>
+<p>输出一行n个数表示答案，用空格隔开，结尾无空格。</p>
+<h2 id="输入">输入</h2>
+<pre><code>5
+2 1 5 3 4
+</code></pre>
+<h2 id="输出">输出</h2>
+<pre><code>5 4 3 1 2
+</code></pre>
+<h2 id="样例说明">样例说明</h2>
+<p>2入栈；1入栈；5入栈；5出栈；3入栈；4入栈；4出栈；3出栈；1出栈；2出栈</p>
+<h2 id="友情提醒">友情提醒</h2>
+<p>如果对这道题没有思路，还是<strong>强烈建议自己想一下</strong>，如果真没有思路，建议出门右转打个<a href="https://leagueoflegends.fandom.com/wiki/Scuttle_Crab">河道蟹</a>再回来。</p>
+<h2 id="题目分析">题目分析</h2>
+<p>这里的排序不是真的排序，只需要按照字典序最大输出即可。所以对于一个排列，我们需要把n放在第一位，第二个我们去找n-1，如果n-1在n在序列中位置之后出现，我们就应该等到n-1出现后输出n-1，如果n-1已经入栈，如果不是栈顶，那么我们是没办法立即取出的，这时候第二个输出的应该不是n-1了，我们应该去找除了栈中最大的数字，这个是很不好找的，我发现了一个布尔滑梯（随便起的），就是首先有一个值s等于不在栈中的最大值，开始时是n，每输出一次都会减少，减少直到栈中没有这个值，那么这个值就是非栈中的最大值s。我们找到一个这样的值s，那么输出，然后我们取出栈顶的值top，栈顶的值top我们是可以马上操作的，如果栈顶的值top大于s，那么我们最应该输出栈顶的值top，然后再取出栈顶的值top继续这一操作。</p>
+<p>嗯，就酱。</p>
+<h2 id="code">code</h2>
+<pre><code class="language-c++">//https://ac.nowcoder.com/acm/contest/22669/A
+//from im0use
+#include &lt;bits/stdc++.h&gt;
+
+#define bs bitset
+#define mm(cont, val) memset(cont, val, sizeof cont);
+#define rep(i, s, t) for (int (i) = int(s); (i) &lt;= (t); (i) ++ )
+
+using namespace std;
+
+typedef vector&lt;int&gt; vi;
+typedef stack&lt;int&gt; si;
+
+int n;
+bs&lt;1000100&gt; vis;
+
+void workshi() {
+    scanf(&quot;%d&quot;, &amp;n);
+	
+	int s = n;
+	si stk;
+	
+	rep(i, 1, n) {
+		int t;
+		scanf(&quot;%d&quot;, &amp;t);
+		if (t == s) {
+			printf(&quot;%d &quot;, t);
+			vis[t] = true;
+			if (s) while (vis[--s]);
+			
+			if (!stk.empty()) {
+				int x = stk.top();
+				while (x &gt; s &amp;&amp; vis[x]) {
+					printf(&quot;%d &quot;, x);
+					stk.pop();
+					if (!stk.empty()) x = stk.top();
+                    else break;
+				}	
+			}
+		} else {
+			stk.push(t);
+			vis[t] = true;
+		}
+	}
+}
+
+int main() {
+	workshi();
+	
+	return 0;
+}
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://swapfloor.github.io/post/leetcode-weekly-contest-289/">
+                <h3 class="post-title">
+                  leetcode Weekly Contest 289
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://swapfloor.github.io/images/avatar.png?v=1658419661068" class="no-responsive avatar">
+    <div class="text-muted">谢谢你来到我的世界</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/yi-dao-zhan-ti-mu/">一道栈题目</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/leetcode-weekly-contest-289/">leetcode Weekly Contest 289</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/atcoder-beginner-contest-042/">AtCoder Beginner Contest 042</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/links/">友链</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/yi-qi-lai-ren-shi-er-cha-sou-suo-shu/">一起来认识二叉搜索树</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/bitset-de-yi-dao-li-ti/">bitset的一道例题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/about/">关于</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/hello-gridea/">Hello Gridea</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://swapfloor.github.io/tag/7pcdKAPSj/" class="badge warning">
+          dfs
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/owpvBz873E/" class="badge success">
+          贪心
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/XCKknlHOCb/" class="badge warning">
+          前缀
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/H3CauUnUc/" class="badge ">
+          组合数
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/IGNALtUVU/" class="badge ">
+          BST
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/6ugHUdckq/" class="badge ">
+          bitset
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://swapfloor.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

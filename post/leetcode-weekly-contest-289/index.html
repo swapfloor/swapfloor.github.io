@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>leetcode Weekly Contest 289 | Hello greaters</title>
+<meta name="description" content="谢谢你来到我的世界">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://swapfloor.github.io/favicon.ico?v=1658419661068">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://swapfloor.github.io/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://swapfloor.github.io">Hello greaters</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/links" class="menu">
+                友链
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>leetcode Weekly Contest 289</h1>
+            <p class="article-meta">
+              2022-07-07
+              
+                <a href="https://swapfloor.github.io/tag/7pcdKAPSj/" class="badge warning">
+                  dfs
+                </a>
+              
+                <a href="https://swapfloor.github.io/tag/owpvBz873E/" class="badge secondary">
+                  贪心
+                </a>
+              
+                <a href="https://swapfloor.github.io/tag/XCKknlHOCb/" class="badge warning">
+                  前缀
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <p><a href="https://github.com/swapfloor/blog/tree/main/leetcodeWC289">code</a></p>
+<h1 id="a">a</h1>
+<p>按照题意模拟即可，递归好些一点我就写递归了，不过空间使用较多。🤣</p>
+<h1 id="b">b</h1>
+<h2 id="题描">题描</h2>
+<p>给你一个数组，你每次可以挑选出其中相同数值的两个或者三个，请算出最少的挑选次数，如果不可能返回<code>-1</code>。</p>
+<h2 id="全析">全析</h2>
+<p>返回<code>-1</code>的情况，数组中存在一个元素的数量为1。</p>
+<p>当数组中一个元素的数量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>(</mo><mi>n</mi><mo>≥</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">n(n\ge 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span>时，如何取次数最少？</p>
+<h3 id="解决方法">解决方法</h3>
+<p>假设取<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>个2次和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>个3次，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>x</mi><mo>+</mo><mn>3</mn><mi>y</mi><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">2x+3y=n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>，尽量取3个。</p>
+<p>设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mo>=</mo><mfrac><mi>n</mi><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">t=\frac{n}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">2x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault">x</span></span></span></span>为偶数，所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>3</mn><mi>y</mi></mrow><annotation encoding="application/x-tex">3y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>同奇偶性，所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>同奇偶性。</p>
+<ul>
+<li>如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>都是奇数，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>=</mo><mi>t</mi><mo separator="true">,</mo><mi>a</mi><mi>n</mi><mi>s</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo>=</mo><mo>(</mo><mi>n</mi><mo>−</mo><mn>3</mn><mi>t</mi><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn><mo>+</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">y=t,ans=x+y=(n-3t)/2+t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mord mathdefault">t</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span></li>
+<li>否则，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi><mo>=</mo><mo>(</mo><mi>n</mi><mo>−</mo><mn>3</mn><mi>t</mi><mo>+</mo><mn>3</mn><mo>)</mo><mi mathvariant="normal">/</mi><mn>2</mn><mo>+</mo><mi>t</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">ans=(n-3t+3)/2+t-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69841em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>（凑巧）</li>
+</ul>
+<h1 id="c">c</h1>
+<p>四方位前缀和。</p>
+<p>求转弯路径积。</p>
+<p>遍历<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>×</mo><mi>m</mi><mo>(</mo><mi>n</mi><mo>:</mo><mi>r</mi><mi>o</mi><mi>w</mi><mi>s</mi><mo separator="true">,</mo><mi>m</mi><mo>:</mo><mi>c</mi><mi>o</mi><mi>l</mi><mi>s</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">n\times m(n: rows, m: cols)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span>的每个点，求每个点周围的2的数量和5的数量，两垂直路径相加再分别加上该点的2和5的值，然后取2和5数量较小值。</p>
+<pre><code class="language-c++">t[1] = w[i - 1][j][2], g[1] = w[i - 1][j][5];//up
+t[2] = h[i][j - 1][2], g[2] = h[i][j - 1][5];//left
+t[3] = w[m][j][2] - w[i][j][2], g[3] = w[m][j][5] - w[i][j][5];//bottom
+t[4] = h[i][n][2] - h[i][j][2], g[4] = h[i][n][5] - h[i][j][5];//right
+</code></pre>
+<p>总共的可能有：</p>
+<ul>
+<li>up + left:      t[1] + t[2]</li>
+<li>up + right:     t[1] + t[4]</li>
+<li>left + bottom:  t[2] + t[3]</li>
+<li>bottom + right: t[3] + t[4]</li>
+</ul>
+<pre><code class="language-c++">ans = min(ans, t[0] + t[1] + t[2], g[0] + g[1] + g[2]);
+// ...
+// 我的错误 ans = min(ans, min(t[0], g[0]) + min(ans, min(t[1], g[1]) + min(ans, min(t[2], g[2]) )
+// ...
+</code></pre>
+<p>我自己错误：</p>
+<ul>
+<li>我是先求各方位2和5最小值，但是一想2可以和垂直路径的5进行积累成尾0</li>
+<li>只判断转弯路径，题读错了。Return the maximum number of trailing zeros in the product of a <strong>cornered</strong> path found in grid.所以是四方位前缀而不是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mn>4</mn><mn>2</mn></mfrac><mo fence="true">)</mo></mrow><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">\binom{4}{2}=6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.245118em;vertical-align:-0.35001em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8951079999999999em;"><span style="top:-2.3550000000000004em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span></span></span></span>种方位</li>
+</ul>
+<p><strong>cornered</strong> path: definition</p>
+<pre><code>A cornered path is defined as a set of adjacent cells with at most one turn.
+cornered角落的，拐角的
+</code></pre>
+<h1 id="d">d</h1>
+<h2 id="题描-2">题描</h2>
+<p>给出一个从0开始的数组中各下标的父节点，0的父节点为-1，给出各下标对应的小写英文字符串，字符串构成一棵树。</p>
+<h2 id="思路">思路</h2>
+<p>对一个结点，暴搜其子节点的链，取最长链和次长链的结点和加1。</p>
+<h2 id="做法">做法</h2>
+<ul>
+<li>首先建邻接表，这个我惯性思维无向图建双边，其实只见一条父节点到儿子的边就好，原因：这题特殊在所有点都给出了父节点，比边的连接关系更加特殊。</li>
+<li>注意是相邻不相同字母，我以为是字母表中相邻字母🤣。</li>
+</ul>
+<pre><code class="language-c++">int ans = 0;
+int solve(int u, const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; g, const std::string&amp; s) {
+	int d1 = 0, d2 = 0;
+	
+	for (auto v : g[u]) {
+		int d = solve(v, g, s);
+		
+		if (s[u] == s[v]) continue;
+		
+		if (d &gt; d1) {
+			d2 = d1;
+			d1 = d;
+		} else if (d &gt; d2) {
+			d2 = d;
+		}
+	}
+	
+	ans = std::max(ans, d1 + d2 + 1);
+		
+	return std::max(d1, d2) + 1;
+}
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://swapfloor.github.io/post/atcoder-beginner-contest-042/">
+                <h3 class="post-title">
+                  AtCoder Beginner Contest 042
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://swapfloor.github.io/images/avatar.png?v=1658419661068" class="no-responsive avatar">
+    <div class="text-muted">谢谢你来到我的世界</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/yi-dao-zhan-ti-mu/">一道栈题目</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/leetcode-weekly-contest-289/">leetcode Weekly Contest 289</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/atcoder-beginner-contest-042/">AtCoder Beginner Contest 042</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/links/">友链</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/yi-qi-lai-ren-shi-er-cha-sou-suo-shu/">一起来认识二叉搜索树</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/bitset-de-yi-dao-li-ti/">bitset的一道例题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/about/">关于</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/hello-gridea/">Hello Gridea</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://swapfloor.github.io/tag/7pcdKAPSj/" class="badge warning">
+          dfs
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/owpvBz873E/" class="badge secondary">
+          贪心
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/XCKknlHOCb/" class="badge success">
+          前缀
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/H3CauUnUc/" class="badge secondary">
+          组合数
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/IGNALtUVU/" class="badge success">
+          BST
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/6ugHUdckq/" class="badge success">
+          bitset
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://swapfloor.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>AtCoder Beginner Contest 042 | Hello greaters</title>
+<meta name="description" content="谢谢你来到我的世界">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://swapfloor.github.io/favicon.ico?v=1658419661068">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://swapfloor.github.io/styles/main.css">
+
+
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://swapfloor.github.io">Hello greaters</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/links" class="menu">
+                友链
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>AtCoder Beginner Contest 042</h1>
+            <p class="article-meta">
+              2022-07-07
+              
+                <a href="https://swapfloor.github.io/tag/H3CauUnUc/" class="badge secondary">
+                  组合数
+                </a>
+              
+            </p>
+            
+            <div class="post-content" v-pre>
+              <h1 id="a">a</h1>
+<pre><code class="language-c++">#include &lt;bits/stdc++.h&gt;
+
+using i64 = long long;
+
+int main(){
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+
+	int a;
+	std::vector&lt;int&gt; b(12, 0);
+	
+	int m = 3;
+	while (m--) {
+		std::cin &gt;&gt; a;
+		b[a]++;
+	}
+	
+	if (b[5] == 2 &amp;&amp; b[7] == 1) {
+		std::cout &lt;&lt; &quot;YES\n&quot;;
+	} else {
+		std::cout &lt;&lt; &quot;NO\n&quot;;
+	}
+
+	return 0;
+}
+</code></pre>
+<h1 id="b">b</h1>
+<pre><code class="language-c++">#include &lt;bits/stdc++.h&gt;
+
+using i64 = long long;
+
+int main(){
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+
+	int n, m;
+	std::cin &gt;&gt; n &gt;&gt; m;
+
+	std::string a[n];
+	for (int i = 0; i &lt; n; i++) {
+		std::cin &gt;&gt; a[i];
+	}
+	
+	sort(a, a + n);
+	
+	for (int i = 0; i &lt; n; i++) {
+		std::cout &lt;&lt; a[i];
+	}
+	std::cout &lt;&lt; &quot;\n&quot;;
+
+	return 0;
+}
+</code></pre>
+<h1 id="c">c</h1>
+<pre><code class="language-c++">#include &lt;bits/stdc++.h&gt;
+
+using i64 = long long;
+
+int main(){
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+
+	int n, m;
+	std::cin &gt;&gt; n &gt;&gt; m;
+	
+	std::vector&lt;int&gt; p(12, 0);
+	for (int i = 0; i &lt; m; i++) {
+		int t;
+		std::cin &gt;&gt; t;
+		p[t] = 1;
+	}
+	
+	int i;
+	for (i = n; ; i++) {
+		bool ok = true;
+		 
+		int t = i;
+		while (t &amp;&amp; ok) {
+			int mod = t % 10;
+			t /= 10;
+			if (p[mod]) {
+				ok = false;
+			}
+		}
+		
+		if (ok) break;
+	}
+	
+	std::cout &lt;&lt; i &lt;&lt; &quot;\n&quot;;
+
+	return 0;
+}
+</code></pre>
+<h1 id="d">d</h1>
+<blockquote>
+<p>这个题思维量有点大。</p>
+</blockquote>
+<h2 id="题目描述">题目描述</h2>
+<p>给出一个H行W列方格，小芳站在左上方，她需要走到右下方停止，且她只能向右和向下走。</p>
+<p>但是她不能走到最下面A行和最左边B列的交界地方。下面有一张图。</p>
+<figure data-type="image" tabindex="1"><img src="https://swapfloor.github.io/post-images/1657726391241.png" alt="" loading="lazy"></figure>
+<ul>
+<li>红色区域代表不能走的区域，S表示小芳的起点，T表示小芳的终点。</li>
+</ul>
+<p>求从起点到终点不同的路径数。</p>
+<h2 id="解决方案">解决方案</h2>
+<p>假设没有限制不能走的区域，假设可以向右走x步，向下走y步，方案数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mrow><mi>x</mi><mo>+</mo><mi>y</mi></mrow><mi>x</mi></mfrac><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">\binom{x+y}{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2023409999999999em;vertical-align:-0.35001em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.852331em;"><span style="top:-2.3550000000000004em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="mbin mtight">+</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span>，（结论：x+y次移动，其中x次移动是同一个方向，y次移动是另一个方向）</p>
+<p>但是加了限制怎么走呢，加一点点思维，上面那个图中可以看到所有由S通往T的路都要讲过绿色箭头，可知绿色箭头的路的总数就是所有路径数。</p>
+<p>由归纳法可知每个绿色箭头的路径互不包含。</p>
+<figure data-type="image" tabindex="2"><img src="https://swapfloor.github.io/post-images/1657726391241.png" alt="" loading="lazy"></figure>
+<p>可以先算出S到绿色箭头左端的路径数乘以绿色箭头右端的到T的路径数，然后求和。</p>
+<p>当然也可以求下图中的蓝色箭头的和。</p>
+<figure data-type="image" tabindex="3"><img src="https://swapfloor.github.io/post-images/1657726420766.png" alt="" loading="lazy"></figure>
+<p>至于组合数求解方法，详情请看<a href="https://www.acwing.com/problem/content/888/">acwing 886.求组合数 II</a></p>
+<h2 id="样例">样例</h2>
+<h3 id="in">in</h3>
+<pre><code>10 7 3 4
+</code></pre>
+<h3 id="out">out</h3>
+<pre><code>3570
+</code></pre>
+<p>数学解题法</p>
+<pre><code class="language-c++">int ans = 0;
+ans += c[3][0] * c[11][2];
+ans += c[4][1] * c[10][2];
+ans += c[5][2] * c[ 9][2];
+ans += c[6][3] * c[ 8][2];
+ans += c[7][4] * c[ 7][2];
+ans += c[8][5] * c[ 6][2];
+ans += c[9][6] * c[ 5][2];
+</code></pre>
+<p><code>c[n][m]</code>表示<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">(</mo><mfrac linethickness="0px"><mi>n</mi><mi>m</mi></mfrac><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">\binom{n}{m}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.20001em;vertical-align:-0.35001em;"></span><span class="mord"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7453919999999999em;"><span style="top:-2.3550000000000004em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span style="top:-3.144em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span>，上面每一对乘积product表示绿色箭头左右两边各自的路径数。</p>
+<pre><code class="language-c++">// 真的强烈建议开longlong，尤其是感觉要取模的时候，最好开了，反正不开可能会wa
+#include &lt;bits/stdc++.h&gt;
+
+using i64 = long long;
+
+constexpr int N = 2e5 + 10; // 千万要注意开2倍空间，因为每一条边最大限度为1e5，所以x+y最大限度为2e5
+
+constexpr int MOD = 1e9 + 7;
+
+std::vector&lt;i64&gt; ft(N, 1);
+
+void pre() {
+	for (int i = 2; i &lt;= 2e5 + 5; i++) {
+		ft[i] = ft[i - 1] * i % MOD;
+	}
+}
+
+i64 ksm(i64 a, i64 b) {
+	i64 ans = 1;
+	while (b) {
+		if (b &amp; 1) ans = ans * a % MOD;
+		a = a * a % MOD;
+		b &gt;&gt;= 1;
+	}
+	
+	return ans;
+}
+
+i64 inv(int a) {
+	return ksm(a, MOD - 2);
+}
+
+i64 c(int n, int m) {
+	if (!n || !m || n == m) return 1; // 一个小优化c(n, 0) = c(m, 0) = c(n, n) = 1
+	
+	return ft[n] * inv(ft[m]) % MOD * inv(ft[n - m]) % MOD;
+}
+
+int main(){
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+
+	pre();
+	
+	i64 h, w, a, b;
+	std::cin &gt;&gt; h &gt;&gt; w &gt;&gt; a &gt;&gt; b;
+
+	i64 ans = 0;
+
+	i64 n1, m1 = b - 1, n2, m2 = w - (b + 1);
+	for (int i = 1; i &lt;= h - a; i++) { 
+		n1 = i - 1 + m1;    // x 表示向右走的步数，y 表示向下走的步数
+		i64 c1 = c(n1, m1); // x = b - 1, y = i - 1;
+		n2 = h - i + m2; 
+		i64 c2 = c(n2, m2); // x = w - (b + 1), y = h - i
+		ans = ans + (c1 * c2 % MOD) % MOD;
+	}
+	
+	std::cout &lt;&lt; (ans + MOD) % MOD &lt;&lt; &quot;\n&quot;;
+	
+	return 0;
+}
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://swapfloor.github.io/post/yi-qi-lai-ren-shi-er-cha-sou-suo-shu/">
+                <h3 class="post-title">
+                  一起来认识二叉搜索树
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://swapfloor.github.io/images/avatar.png?v=1658419661068" class="no-responsive avatar">
+    <div class="text-muted">谢谢你来到我的世界</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/yi-dao-zhan-ti-mu/">一道栈题目</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/leetcode-weekly-contest-289/">leetcode Weekly Contest 289</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/atcoder-beginner-contest-042/">AtCoder Beginner Contest 042</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/links/">友链</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/yi-qi-lai-ren-shi-er-cha-sou-suo-shu/">一起来认识二叉搜索树</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/bitset-de-yi-dao-li-ti/">bitset的一道例题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/about/">关于</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://swapfloor.github.io/post/hello-gridea/">Hello Gridea</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://swapfloor.github.io/tag/7pcdKAPSj/" class="badge secondary">
+          dfs
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/owpvBz873E/" class="badge ">
+          贪心
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/XCKknlHOCb/" class="badge secondary">
+          前缀
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/H3CauUnUc/" class="badge secondary">
+          组合数
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/IGNALtUVU/" class="badge warning">
+          BST
+        </a>
+      
+        <a href="https://swapfloor.github.io/tag/6ugHUdckq/" class="badge warning">
+          bitset
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://swapfloor.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
